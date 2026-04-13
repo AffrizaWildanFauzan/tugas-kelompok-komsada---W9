@@ -31,6 +31,7 @@ Berikut adalah susunan file dalam repositori ini:
 |6-7|Pemodelan Time Series|ACF, PACF, ARIMA, Exponential Smoothing, SARIMA|
 
 ## Kebutuhan Library
+Library wajib untuk diinstall terlebih dahulu sebelum menjalankan script
 |File|Library|Fungsi|
 |----|-------|-----|
 |statistik_deskriptif.R|ggplot2|Visualisasi boxplot|
