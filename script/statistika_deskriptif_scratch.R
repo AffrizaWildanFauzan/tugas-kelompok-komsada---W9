@@ -1,136 +1,173 @@
 # 1. Load Data
 set.seed(42)
 df<-read.csv("~/Downloads/dataset_walmart.csv")
-# 2. Cek Struktur & Data Awal
-str(df)
-head(df)
-dim(df)
-View(df)
-# 3. Statistik Deskriptif Numerik
-# summary dasar
-summary(df)
 
-colSums(is.na(df))
-# fungsi statistik lengkap
-mean<-function(x){
-  sum=0
-  n<-length(x)
-  for(i in 1:n){
-    sum=sum+x[i]
+# STATISTIKA DESKRIPTIF (SCRATCH)
+
+# 1. Mean
+mean_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  
+  total <- 0
+  for (i in 1:n) {
+    total <- total + x[i]
   }
-  xbar=sum/n
-  return(xbar)
+  
+  return(total / n)
 }
 
-stadev<-function(x){
-  xbar<-mean(x)
-  sum=0
-  n<-length(x)
-  for(i in 1:n){
-    sum=sum+(x[i]-xbar)^2
+# 2. Median
+median_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  
+  # sorting
+  for (i in 1:(n-1)) {
+    for (j in 1:(n-i)) {
+      if (x[j] > x[j+1]) {
+        temp <- x[j]
+        x[j] <- x[j+1]
+        x[j+1] <- temp
+      }
+    }
   }
-  std=sqrt(sum)/n
-  return(std)
+  
+  if (n %% 2 == 1) {
+    return(x[(n+1)/2])
+  } else {
+    return((x[n/2] + x[n/2 + 1]) / 2)
+  }
+}
+# 3. Variance
+variance_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  
+  mean <- mean_scratch(x)
+  
+  total_var <- 0
+  for (i in 1:n) {
+    total_var <- total_var + (x[i] - mean)^2
+  }
+  
+  return(total_var / (n - 1))
+}
+# 4. Standard Deviation
+sd_scratch <- function(x) {
+  return(sqrt(variance_scratch(x)))
+}
+# 5. Quartile (Q1, Median, Q3)
+quartile_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  
+  # sorting
+  for (i in 1:(n-1)) {
+    for (j in 1:(n-i)) {
+      if (x[j] > x[j+1]) {
+        temp <- x[j]
+        x[j] <- x[j+1]
+        x[j+1] <- temp
+      }
+    }
+  }
+  
+  pos_q1 <- (n + 1) / 4
+  pos_q2 <- (n + 1) / 2
+  pos_q3 <- 3 * (n + 1) / 4
+  
+  get_q <- function(pos) {
+    lower <- floor(pos)
+    upper <- ceiling(pos)
+    
+    if (lower == upper) {
+      return(x[lower])
+    } else {
+      return(x[lower] + (pos - lower) * (x[upper] - x[lower]))
+    }
+  }
+  
+  return(list(
+    Q1 = get_q(pos_q1),
+    median = get_q(pos_q2),
+    Q3 = get_q(pos_q3)
+  ))
+}
+# 6. Mode
+mode_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  
+  uniq <- c()
+  freq <- c()
+  
+  for (i in 1:n) {
+    found <- FALSE
+    for (j in 1:length(uniq)) {
+      if (x[i] == uniq[j]) {
+        freq[j] <- freq[j] + 1
+        found <- TRUE
+        break
+      }
+    }
+    if (!found) {
+      uniq <- c(uniq, x[i])
+      freq <- c(freq, 1)
+    }
+  }
+  
+  max_freq <- freq[1]
+  mode <- uniq[1]
+  
+  for (i in 2:length(freq)) {
+    if (freq[i] > max_freq) {
+      max_freq <- freq[i]
+      mode <- uniq[i]
+    }
+  }
+  
+  return(mode)
+}
+# 7. Min & Max
+min_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  min_val <- x[1]
+  
+  for (i in 2:length(x)) {
+    if (x[i] < min_val) {
+      min_val <- x[i]
+    }
+  }
+  
+  return(min_val)
 }
 
-varians<-function(x){
-  xbar<-mean(x)
-  sum=0
-  n<-length(x)
-  for(i in 1:n){
-    sum=sum+(x[i]-xbar)^2
+max_scratch <- function(x) {
+  x <- x[!is.na(x)]
+  max_val <- x[1]
+  
+  for (i in 2:length(x)) {
+    if (x[i] > max_val) {
+      max_val <- x[i]
+    }
   }
-  var=sum/n
-  return(var)
+  
+  return(max_val)
 }
 
-kovarians<-function(x,y){
-  xbar<-mean(x)
-  ybar<-mean(y)
-  n<-length(x)
-  sum=0
-  for(i in 1:n){
-    sum=sum+((x[i]-xbar)*(y[i]-ybar))
-  }
-  kov=sum/n
-  return(kov)
-}
+# CONTOH PEMAKAIAN
 
-korelasi<-function(x,y){
-  xbar<-mean(x)
-  ybar<-mean(y)
-  n<-length(x)
-  atas=0
-  bawah_1=0
-  bawah_2=0
-  for(i in 1:n){
-    atas=atas+((x[i]-xbar)*(y[i]-ybar))
-    bawah_1=bawah_1+(x[i]-xbar)^2
-    bawah_2=bawah_2+(y[i]-ybar)^2
-  }
-  bawah_1_final=sqrt(bawah_1)
-  bawah_2_final=sqrt(bawah_2)
-  kor=atas/(bawah_1_final*bawah_2_final)
-  return(kor)
-}
+data <- read.csv("dataset_walmart.csv")
 
-median<-function(x){
-  n<-length(x)
-  if(n%%2==0){
-    med=x[n/2]+x[(n+2)/2]
-  }
-  if(n%%2!=0){
-    med=x[(n+1)/2]
-  }
-  return(med)
-}
+x <- data$Weekly_Sales
 
-modus<-function(x){
-  uniq_val<-unique(x)
-  uniq_val[which.max(tabulate(match(x,uniq_val)))]
-}
-
-med_x<-median(df$Weekly_Sales)
-med_x
-
-med_y<-median(df$Temperature)
-med_y
-
-std_x<-stadev(df$Weekly_Sales)
-std_x
-
-std_y<-stadev(df$Temperature)
-std_y
-
-var_x<-varians(df$Weekly_Sales)
-var_x
-
-var_y<-varians(df$Temperature)
-var_y
-
-kov_xy<-kovarians(df$Weekly_Sales,df$Temperature)
-kov_xy
-
-kor_xy<-korelasi(df$Weekly_Sales,df$Temperature)
-kor_xy
-
-mod_x<-modus(df$Weekly_Sales)
-mod_x
-
-mod_y<-modus(df$Temperature)
-mod_y
-
-hasil_statdes<-data.frame(
-  varians_x=var_x,
-  varians_y=var_y,
-  kovarians=kov_xy,
-  korelasi=kor_xy,
-  standard_deviation_x=std_x,
-  standard_deviation_y=std_y,
-  median_x=med_x,
-  median_y=med_y,
-  modus_x=mod_x,
-  modus_y=mod_y
-)
-hasil_statdes
+mean_scratch(x)
+median_scratch(x)
+variance_scratch(x)
+sd_scratch(x)
+quartile_scratch(x)
+mode_scratch(x)
+min_scratch(x)
+max_scratch(x)
 
