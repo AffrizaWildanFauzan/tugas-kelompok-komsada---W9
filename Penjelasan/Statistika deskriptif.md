@@ -20,6 +20,8 @@ $$Median = X_{\frac{n+1}{2}}$$
 
 $$Median = \frac{X_{\frac{n}{2}} + X_{\frac{n}{2}+1}}{2}$$
 
+### Modus (Nilai Terbanyak Muncul)
+
 a. Data Tunggal
 
 Tidak ada rumus khusus:
