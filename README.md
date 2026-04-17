@@ -15,6 +15,7 @@ Proyek ini bertujuan untuk meringkas keseluruhan materi dari mata kuliah **Kompu
 10. Dimas
 11. Calvin
 12. Alief
+13. Keira
 
 ## 📂 Struktur Repositori
 Berikut adalah susunan file dalam repositori ini:
