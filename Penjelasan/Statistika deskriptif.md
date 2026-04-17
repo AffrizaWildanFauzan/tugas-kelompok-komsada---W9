@@ -1,89 +1,108 @@
 ![Statistika](Statdesk.png)
 
-# Statistika Deskriptif: Rumus dan Penjelasan
-
-Statistika deskriptif adalah metode yang digunakan untuk menganalisis dan mendeskripsikan data yang telah dikumpulkan tanpa membuat kesimpulan yang lebih luas (generalisasi). Tujuannya adalah untuk memberikan gambaran yang jelas tentang karakteristik data, seperti pemusatan, penyebaran, dan hubungan antar variabel.
+# Rumus Statistika Deskriptif (Lengkap & Terkoreksi)
 
 ## 1. Ukuran Pemusatan
 
-### a. Median (Nilai Tengah)
-Median adalah nilai yang membagi data terurut menjadi dua bagian yang sama besar.
+### Mean (Rata-rata)
+Rata-rata hitung dari seluruh nilai data.
 
-**Rumus untuk data tunggal:**
-- **Jika n ganjil:**
-    
-  $$Me = X_{\frac{n+1}{2}}$$
-- **Jika n genap:**
-   
-  $$Me = \frac{X_{\frac{n}{2}} + X_{\frac{n}{2} + 1}}{2}$$
+$$\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
 
-### b. Modus (Nilai yang Paling Sering Muncul)
-Modus adalah nilai yang memiliki frekuensi tertinggi dalam suatu kumpulan data.
+### Median (Nilai Tengah)
+Nilai yang membagi data terurut menjadi dua bagian sama besar.
 
-**Rumus untuk data berkelompok:**
+**Jika n ganjil:**
 
-$$Mo = L + \left( \frac{d_1}{d_1 + d_2} \right) \times c$$
-- \(L\) = tepi bawah kelas modus  
-- \(d_1\) = selisih frekuensi kelas modus dengan kelas sebelumnya  
-- \(d_2\) = selisih frekuensi kelas modus dengan kelas sesudahnya  
-- \(c\) = panjang kelas
+$$Median = X_{\frac{n+1}{2}}$$
 
-## 2. Ukuran Penyebaran
+**Jika n genap:**
 
-### a. Varians (\(s^2\))
-Varians mengukur seberapa jauh setiap nilai dalam data menyimpang dari rata-rata.
+$$Median = \frac{X_{\frac{n}{2}} + X_{\frac{n}{2}+1}}{2}$$
 
-**Rumus Varians (sampel):**
+> Koreksi: Pada file Anda tertulis `X(n + 1/5/2)` — itu tidak tepat. Rumus di atas adalah yang benar.
+
+## 2. Ukuran Posisi (Kuartil)
+
+### Kuartil 3 (Q₃)
+Nilai yang membagi data sehingga 75% data berada di bawahnya.
+
+Untuk data tunggal:
+
+$$Q_3 = X_{k_3}$$
+dengan:
+$$k_3 = \frac{3(n+1)}{4}$$
+
+Jika $k_3$ tidak bulat, gunakan interpolasi:
+
+$$Q_3 = x_l + (k_3 - l)(x_u - x_l)$$
+
+- $l = \lfloor k_3 \rfloor$ (pembulatan ke bawah / lantai)
+- $u = \lceil k_3 \rceil$ (pembulatan ke atas / langit-langit)
+
+### Kuartil 1 (Q₁) — pelengkap
+
+$$k_1 = \frac{n+1}{4}$$
+$$Q_1 = x_l + (k_1 - l)(x_u - x_l)$$
+
+## 3. Ukuran Penyebaran
+
+### IQR (Interquartile Range)
+Jangkauan antarkuartil, mengukur sebaran 50% data tengah.
+
+$$IQR = Q_3 - Q_1$$
+
+### Range (Jangkauan)
+$$Range = Maksimum - Minimum$$
+
+### Minimum & Maksimum
+- **Min** = nilai terkecil dalam data
+- **Maks** = nilai terbesar dalam data
+
+### Varians ($s^2$)
 
 $$s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$$
 
-**Rumus Varians (populasi):**
+### Standar Deviasi ($s$)
+Akar kuadrat dari varians.
 
-$$\sigma^2 = \frac{\sum_{i=1}^{n} (x_i - \mu)^2}{n}$$
+$$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$$
 
-### b. Standar Deviasi (\(s\))
-Standar deviasi adalah akar kuadrat dari varians. Menggambarkan dispersasi data dalam satuan yang sama dengan data asli.
+## 4. Ukuran Bentuk Distribusi
 
-**Rumus Standar Deviasi (sampel):**
+### Skewness (Kemiringan)
+Mengukur simetri distribusi data.
 
-$$s = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$$
+**Rumus (Pearson's moment coefficient):**
 
-**Rumus Standar Deviasi (populasi):**
+$$Skewness = \frac{\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^3}{\left(\sqrt{\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2}\right)^3}$$
 
-$$\sigma = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \mu)^2}{n}}$$
+Atau dengan koreksi sampel (biasa digunakan):
 
-## 3. Ukuran Hubungan Antar Variabel
+$$Skewness = \frac{n}{(n-1)(n-2)} \cdot \frac{\sum (x_i - \bar{x})^3}{s^3}$$
 
-### a. Kovarians (\(Cov(X,Y)\))
-Kovarians mengukur arah hubungan linier antara dua variabel. Nilai positif menunjukkan hubungan searah, negatif menunjukkan hubungan berlawanan arah.
+> Koreksi: File Anda menulis `Skewness = Σ(xi - x̄)³ / n?` — itu tidak lengkap. Rumus di atas adalah bentuk baku.
 
-**Rumus Kovarians (sampel):**
+### Kurtosis (Keruncingan)
+Mengukur "ketajaman" puncak distribusi.
 
-$$Cov(X,Y) = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n-1}$$
+**Rumus (excess kurtosis sering digunakan):**
 
-**Rumus Kovarians (populasi):**
+$$Kurtosis = \frac{\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^4}{\left(\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2\right)^2} - 3$$
 
-$$Cov(X,Y) = \frac{\sum_{i=1}^{n} (x_i - \mu_x)(y_i - \mu_y)}{n}$$
+Atau tanpa koreksi (moment kurtosis):
 
-### b. Korelasi (\(r\))
-Korelasi (Pearson) mengukur kekuatan dan arah hubungan linier antara dua variabel. Nilainya berkisar antara -1 hingga +1.
+$$Kurtosis = \frac{\sum (x_i - \bar{x})^4}{n \cdot s^4}$$
 
-**Rumus Korelasi Pearson:**
+> Koreksi: File Anda menulis `Kurtosis = Σ(xi - x̄)⁴ / n/` — penyebutnya kurang tepat. Rumus di atas adalah yang benar.
 
-$$r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}$$
+---
 
-Atau dapat ditulis dalam bentuk kovarians dan standar deviasi:
-$$r = \frac{Cov(X,Y)}{s_x \cdot s_y}$$
+## Ringkasan Koreksi dari File Anda
 
-## Interpretasi Singkat
-
-| Ukuran | Fungsi |
-|--------|--------|
-| Median | Pemusatan data yang tahan terhadap outlier |
-| Modus | Frekuensi kemunculan tertinggi |
-| Varians | Sebaran kuadrat deviasi dari rata-rata |
-| Std Deviasi | Sebaran dalam satuan asli data |
-| Kovarians | Arah hubungan linier (tanpa standarisasi) |
-| Korelasi | Kekuatan & arah hubungan linier (-1 hingga 1) |
-
-> **Catatan:** Penggunaan \(n-1\) pada sampel disebut **koreksi Bessel**, bertujuan agar varians sampel menjadi penduga tidak bias bagi varians populasi.
+| Komponen | Dalam file Anda | Versi Benar |
+|----------|----------------|---------------|
+| Median ganjil | $X(n + 1/5/2)$ | $X_{(n+1)/2}$ |
+| Median genap | $((X_n) + X_{n/2} + 1))/2$ | $(X_{n/2} + X_{n/2+1})/2$ |
+| Skewness | $\frac{\sum (x_i - \bar{x})^3}{n?}$ | Dibagi $n \cdot s^3$ (dengan standarisasi) |
+| Kurtosis | $\frac{\sum (x_i - \bar{x})^4}{n/}$ | Dibagi $n \cdot s^4$ (bisa dikurangi 3 untuk excess) |
