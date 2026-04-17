@@ -19,6 +19,7 @@ Median adalah nilai yang membagi data terurut menjadi dua bagian yang sama besar
 Modus adalah nilai yang memiliki frekuensi tertinggi dalam suatu kumpulan data.
 
 **Rumus untuk data berkelompok:**
+
 $$Mo = L + \left( \frac{d_1}{d_1 + d_2} \right) \times c$$
 - \(L\) = tepi bawah kelas modus  
 - \(d_1\) = selisih frekuensi kelas modus dengan kelas sebelumnya  
