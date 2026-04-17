@@ -20,8 +20,6 @@ $$Median = X_{\frac{n+1}{2}}$$
 
 $$Median = \frac{X_{\frac{n}{2}} + X_{\frac{n}{2}+1}}{2}$$
 
-> Koreksi: Pada file Anda tertulis `X(n + 1/5/2)` — itu tidak tepat. Rumus di atas adalah yang benar.
-
 ## 2. Ukuran Posisi (Kuartil)
 
 ### Kuartil 3 (Q₃)
@@ -80,8 +78,6 @@ $$Skewness = \frac{\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^3}{\left(\sqrt{\fra
 Atau dengan koreksi sampel (biasa digunakan):
 
 $$Skewness = \frac{n}{(n-1)(n-2)} \cdot \frac{\sum (x_i - \bar{x})^3}{s^3}$$
-
-> Koreksi: File Anda menulis `Skewness = Σ(xi - x̄)³ / n?` — itu tidak lengkap. Rumus di atas adalah bentuk baku.
 
 ### Kurtosis (Keruncingan)
 Mengukur "ketajaman" puncak distribusi.
