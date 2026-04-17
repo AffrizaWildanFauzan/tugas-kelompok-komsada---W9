@@ -11,11 +11,10 @@ Proyek ini bertujuan untuk meringkas keseluruhan materi dari mata kuliah **Kompu
 6. Aqila Ikhza / 5052241032
 7. Azizah Adilah / 5052241027
 8. Muhammad Naqib Bariq / 5052241013
-9. Kiagus Arif / 5052231038
-10. Dimas
-11. Constantine Calvin Gosal Jo/ 5052241010
-12. Alief
-13. Keira
+9. Dimas
+10. Constantine Calvin Gosal Jo/ 5052241010
+11. Alief
+12. Keira
 
 ## 📂 Struktur Repositori
 Berikut adalah susunan file dalam repositori ini:
