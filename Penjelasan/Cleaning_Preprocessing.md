@@ -49,7 +49,7 @@ Proses mengubah format data agar sesuai dengan kebutuhan komputasi.
     $$z = \frac{x - \mu}{\sigma}$$
 
 ### C. Data Reduction
-Proses efisiensi untuk mempercepat waktu komputasi tanpa mengurangi informasi. Pada dataset ini, dilakukan **Deduplikasi Kolom** hasil *merge* yang redundan.
+* Proses efisiensi untuk mempercepat waktu komputasi tanpa mengurangi informasi. Pada dataset ini, dilakukan **Deduplikasi Kolom** hasil *merge* yang redundan.
 ---
 
 ## 3. Implementasi Kode (R)
