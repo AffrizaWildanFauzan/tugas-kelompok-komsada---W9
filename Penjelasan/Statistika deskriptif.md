@@ -26,7 +26,7 @@ a. Data Tunggal
 
 Tidak ada rumus khusus:
 
-Modus=nilai dengan frekuensi terbanyak
+Modus = nilai dengan frekuensi terbanyak
 
 Catatan:
 
