@@ -38,8 +38,8 @@ b. Data Berkelompok
 $$Mo = L + \left( \frac{d_1}{d_1 + d_2} \right) \times c$$
 - L = tepi bawah kelas modus  
 - d_1 = selisih frekuensi kelas modus dengan kelas sebelumnya  
-- \(d_2\) = selisih frekuensi kelas modus dengan kelas sesudahnya  
-- \(c\) = panjang kelas
+- d_2 = selisih frekuensi kelas modus dengan kelas sesudahnya  
+- c = panjang kelas
 
 ## 2. Ukuran Posisi (Kuartil)
 
