@@ -28,7 +28,9 @@ Proses untuk mendeteksi dan memperbaiki (atau menghapus) catatan yang rusak atau
 
 * **Handling Duplicates:** Menghapus data yang terinput lebih dari satu kali agar tidak terjadi bias.
 
-* **Handling Outliers:** Menangani nilai ekstrem yang tidak masuk akal (contoh: nilai penjualan negatif).
+* **Handling Outliers:** Menangani nilai ekstrem yang tidak masuk akal (contoh: nilai penjualan negatif. Deteksi outlier secara statistik dapat menggunakan metode **IQR (Interquartile Range)**:
+    $$IQR = Q_3 - Q_1$$
+    Data dianggap outlier jika berada di luar rentang $[Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR]$. Pada kasus ini, kita melakukan filter spesifik pada `Weekly_Sales < 0` karena secara logika ekonomi penjualan tidak mungkin bernilai negatif.
 
 
 
