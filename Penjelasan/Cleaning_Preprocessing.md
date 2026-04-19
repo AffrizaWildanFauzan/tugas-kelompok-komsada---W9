@@ -49,6 +49,9 @@ $$f(x) = \begin{cases} 1, & \text{jika TRUE} \\\\ 0, & \text{jika FALSE} \end{ca
 
 ### C. Data Reduction
 * Proses efisiensi untuk mempercepat waktu komputasi tanpa mengurangi informasi. Pada dataset ini, dilakukan **Deduplikasi Kolom** hasil *merge* yang redundan.
+* Bertujuan untuk meningkatkan efisiensi penyimpanan dan kecepatan komputasi tanpa mengurangi integritas informasi.
+* **Feature Selection:** Proses pemilihan variabel yang paling relevan. Pada proyek ini, kita membuang kolom `IsHoliday.y` karena bersifat redundan terhadap `IsHoliday.x` (Deduplikasi Kolom).
+* **Dimensionality Reduction:** Mengurangi jumlah fitur kompleks, contoh metode populer lainnya adalah **PCA (Principal Component Analysis)** yang mereduksi dimensi melalui proyeksi ortogonal.
 ---
 
 ## 3. Implementasi Kode (R)
