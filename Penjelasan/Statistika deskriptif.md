@@ -113,11 +113,11 @@ $$Kurtosis = \frac{\sum (x_i - \bar{x})^4}{n \cdot s^4}$$
 
 ---
 
-## Ringkasan Koreksi dari File Anda
+## Ringkasan formula
 
-| Komponen | Dalam file Anda | Versi Benar |
-|----------|----------------|---------------|
-| Median ganjil | $X(n + 1/5/2)$ | $X_{(n+1)/2}$ |
-| Median genap | $((X_n) + X_{n/2} + 1))/2$ | $(X_{n/2} + X_{n/2+1})/2$ |
-| Skewness | $\frac{\sum (x_i - \bar{x})^3}{n?}$ | Dibagi $n \cdot s^3$ (dengan standarisasi) |
-| Kurtosis | $\frac{\sum (x_i - \bar{x})^4}{n/}$ | Dibagi $n \cdot s^4$ (bisa dikurangi 3 untuk excess) |
+| Komponen | Formula | 
+|----------|----------------|
+| Median ganjil | $X(n + 1/5/2)$ | 
+| Median genap | $((X_n) + X_{n/2} + 1))/2$ | 
+| Skewness | $\frac{\sum (x_i - \bar{x})^3}{n?}$ | 
+| Kurtosis | $\frac{\sum (x_i - \bar{x})^4}{n/}$ | 
