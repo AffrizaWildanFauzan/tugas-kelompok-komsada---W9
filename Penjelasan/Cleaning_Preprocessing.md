@@ -1,4 +1,4 @@
-# Dokumentasi Tugas: Cleaning & Pre-processing Dataset Walmart
+# Cleaning & Pre-processing Dataset Walmart
 
 **Mata Kuliah:** Komputasi Sains Data  
 
