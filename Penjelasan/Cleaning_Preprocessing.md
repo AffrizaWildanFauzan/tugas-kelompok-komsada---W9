@@ -45,9 +45,9 @@ Proses mengubah format data agar sesuai dengan kebutuhan komputasi.
     * *One-Hot Encoding*: Membuat kolom baru untuk setiap kategori (0 dan 1). Menciptakan variabel indikator ($0$ atau $1$) untuk kategori multikelas (Tipe A, B, C). Untuk menghindari *Dummy Variable Trap* (multikolinearitas), jika terdapat $k$ kategori, maka hanya $k-1$ kolom yang dimasukkan ke model.
 
     * *Label Encoding*: Memberikan urutan angka (1, 2, 3...). Mengubah kategori biner menjadi nilai diskret.
-    
+    **Logika Label Encoding:**
 
-  $$f(x) = \begin{cases} 1, & \text{jika TRUE} \\ 0, & \text{jika FALSE} \end{cases}$$
+$$f(x) = \begin{cases} 1, & \text{jika TRUE} \\\\ 0, & \text{jika FALSE} \end{cases}$$
 
 * **Scaling (Standardization):** Menyamakan rentang nilai antar variabel (misal: menyamakan skala jutaan ke skala 0-1) agar model linear tidak berat sebelah.
 *  Mengubah skala data agar memiliki rata-rata ($\mu$) = 0 dan standar deviasi ($\sigma$) = 1. Rumus **Z-Score** yang digunakan adalah:
