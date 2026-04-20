@@ -132,7 +132,7 @@ $$
 
 Mengukur kekuatan dan arah hubungan linear.
 <p align="center">
-$r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+$r=\frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
 </p>
 
 ---
