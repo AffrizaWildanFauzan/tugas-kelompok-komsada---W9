@@ -20,13 +20,6 @@ Proyek ini bertujuan untuk meringkas keseluruhan materi dari mata kuliah **Kompu
 ## 📂 Struktur Repositori
 Berikut adalah susunan file dalam repositori ini:
 ```text
-├── scripts/            # Skrip utama analisis R
-│   ├── 01_Statistik_Deskriptif.R
-|   ├── 02_Teknik_Pembersihan_Data.R
-|   ├── 03_Tabel_Kontingensi.R
-|   ├── 04_Regresi Linier.R
-|   ├── 05_Regresi_Logistik_Biner.R
-|   ├── 06-07_Pemodelan_Time_Series.R
 ├── Penjelasan/
 │   ├── 01_Statistik_Deskriptif.md
 |   ├── 02_Teknik_Pembersihan_Data.md
@@ -34,6 +27,15 @@ Berikut adalah susunan file dalam repositori ini:
 |   ├── 04_Regresi Linier.md
 |   ├── 05_Regresi_Logistik_Biner.md
 |   ├── 06-07_Pemodelan_Time_Series.md
+├── dataset/
+│   ├── dataset_walmart.zip
+├── script/            # Skrip utama analisis R
+│   ├── 01_Statistik_Deskriptif.R
+|   ├── 02_Teknik_Pembersihan_Data.R
+|   ├── 03_Tabel_Kontingensi.R
+|   ├── 04_Regresi Linier.R
+|   ├── 05_Regresi_Logistik_Biner.R
+|   ├── 06-07_Pemodelan_Time_Series.R
 └── README.md           # Dokumentasi proyek
 ```
 ## Materi
