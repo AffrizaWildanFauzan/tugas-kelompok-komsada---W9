@@ -34,7 +34,7 @@ Berikut adalah susunan file dalam repositori ini:
 |3|Tabel Kontigensi|Membuat tabel kontigensi untuk melakukan analisis variabel kategorik|
 |4|Regresi Linier Sederhana dan Berganda|Estimasi parameter dan uji signifikansi (ANOVA)|
 |5|Regresi Logistik|Estimasi parameter dan uji signifikansi|
-|6-7|Pemodelan Time Series|ACF, PACF, ARIMA, Exponential Smoothing, SARIMA|
+|6-7|Pemodelan Time Series|ACF, PACF, ARIMA, Exponential Smoothing|
 
 ## Kebutuhan Library
 Library wajib untuk diinstall terlebih dahulu sebelum menjalankan script
