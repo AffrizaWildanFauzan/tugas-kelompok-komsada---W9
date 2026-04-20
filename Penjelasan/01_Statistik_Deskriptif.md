@@ -1,6 +1,6 @@
 ![Statistika](StatDesk.png)
 
-# Rumus Statistika Deskriptif (Lengkap & Terkoreksi)
+# Rumus Statistika Deskriptif
 
 ## 1. Ukuran Pemusatan
 
