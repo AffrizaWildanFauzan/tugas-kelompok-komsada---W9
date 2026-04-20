@@ -83,20 +83,6 @@ Mengubah data sehingga memiliki nilai rata-rata ($\mu$) = 0 dan standar deviasi 
 Menekan seluruh nilai data agar berada dalam rentang skala yang pasti, biasanya antara 0 hingga 1. Sangat penting untuk algoritma berbasis jarak seperti KNN (*K-Nearest Neighbors*) atau *Neural Network*.
 * Rumus Min-Max: $$x' = \frac{x - x_{min}}{x_{max} - x_{min}}$$
 
----
-
-## 🚀 Implementasi Data Transformation (Case Study: Walmart)
-Berdasarkan diskusi dan kebutuhan pemodelan kelompok kami (Regresi Linier, Regresi Logistik, dan *Time Series*), berikut adalah perlakuan transformasi yang kami terapkan pada dataset Walmart:
-
-1. **Transformasi Format Tanggal:** Mengubah kolom `Date` yang aslinya bertipe *character* menjadi tipe `Date` dengan format `"%Y-%m-%d"`. Ini sangat krusial bagi tim *Time Series* untuk melakukan peramalan (*forecasting*) berdasarkan urutan waktu.
-2. **Penyesuaian Tipe Faktor:** Mengubah kolom `Type` (tipe toko) menjadi `Factor` agar siap dilakukan visualisasi atau agregasi.
-3. **Eksekusi Encoding (Berdasarkan Request Tim Regresi):**
-   * Mengubah tipe *boolean* pada kolom `IsHoliday` (TRUE/FALSE) menjadi bentuk numerik biner (1 dan 0).
-   * Menerapkan *One-Hot Encoding* secara manual pada kolom `Type` (A, B, C) menjadi variabel dummy. Sesuai dengan prinsip penghindaran *Dummy Variable Trap*, kami hanya membuat kolom `Type_A` dan `Type_B`.
-4. **Keputusan Absennya Scaling (No Scaling):**
-   * Secara sadar, tim Preprocessing **TIDAK** melakukan *Scaling* (baik Z-score maupun Min-Max) pada dataset *output* (file CSV). 
-   * **Alasan Bisnis & Teknis:** Jika variabel dependen (`Weekly_Sales`) diubah bentuknya melalui *scaling*, tim *Time Series* akan kesulitan menginterpretasikan hasil prediksi ke dalam nominal mata uang asli (Dollar). Oleh karena itu, *dataset* dibiarkan dalam skala aslinya, dan proses *scaling* didelegasikan kepada *script* masing-masing tim pemodelan (misalnya tim Regresi Linier) sesuai dengan algoritma mereka.
-
 
 
 
@@ -139,11 +125,9 @@ Dengan selesainya tahap reduksi ini, dataset Walmart telah sepenuhnya bersih, te
 Berikut adalah tahapan yang diterapkan pada `dataset_walmart.csv`:
 
 ### 3.1 Persiapan dan Pemuatan Data
-
-Import library dplyr, langkah pertama adalah memuat dataset mentah untuk dilakukan inspeksi awal.
+Langkah pertama adalah memuat dataset mentah untuk dilakukan inspeksi awal.
 
 ```r
-library(dplyr)
 # Load data
 data <- read.csv("dataset_walmart.csv")
 ```
@@ -156,27 +140,28 @@ Dilakukan pengecekan kualitas data
 # Cek NA dan Duplikat
 colSums(is.na(data))
 sum(duplicated(data))
-# Cek anomali nilai pada penjualan
+
+# Cek anomali nilai pada penjualan (mencari nilai minus)
 summary(data$Weekly_Sales)
 ```
-
-
 
 ### 3.3 Eksekusi Cleaning
 
 Menggunakan teknik imputasi nol untuk diskon (MarkDown) dan filtering untuk menghapus penjualan negatif.
 
 ```r
-data_bersih <- data %>%
-  distinct() %>%                               # Hapus duplikat
-  filter(Weekly_Sales >= 0) %>%                # Buang nilai negatif
-  mutate(                                      # Imputasi NA ke 0
-    MarkDown1 = ifelse(is.na(MarkDown1), 0, MarkDown1),
-    MarkDown2 = ifelse(is.na(MarkDown2), 0, MarkDown2),
-    MarkDown3 = ifelse(is.na(MarkDown3), 0, MarkDown3),
-    MarkDown4 = ifelse(is.na(MarkDown4), 0, MarkDown4),
-    MarkDown5 = ifelse(is.na(MarkDown5), 0, MarkDown5)
-  )
+# 1. Hapus baris duplikat
+data <- data[!duplicated(data), ]
+
+# 2. Buang sales minus (retur)
+data <- data[data$Weekly_Sales >= 0, ]
+
+# 3. Isi NA pada kolom diskon (MarkDown) dengan 0
+data$MarkDown1[is.na(data$MarkDown1)] <- 0
+data$MarkDown2[is.na(data$MarkDown2)] <- 0
+data$MarkDown3[is.na(data$MarkDown3)] <- 0
+data$MarkDown4[is.na(data$MarkDown4)] <- 0
+data$MarkDown5[is.na(data$MarkDown5)] <- 0
 ```
 
 ### 3.4 Transformasi Tipe Data
@@ -184,16 +169,13 @@ data_bersih <- data %>%
 Melakukan pengecekan tipe dan skala data, kemudian mengubah format kolom agar sesuai dengan standar analisis.
 
 ```r
-# Cek tipe & skala data
-str(data_bersih1)
-summary(data_bersih1[c("Weekly_Sales", "Temperature", "CPI")])
-# Eksekusi transformasi
-data_bersih2 <- data_bersih1 %>%
-  mutate(
-    Date = as.Date(Date, format = "%Y-%m-%d"), # ubah character ke date
-    Type = as.factor(Type)                      # ubah character ke factor
-  )
-# Note: Scaling (z-score dll) akan dilakukan oleh tim model sesuai kebutuhan
+# Ubah character ke format Date
+data$Date <- as.Date(data$Date, format = "%Y-%m-%d")
+
+# Ubah character ke format Factor
+data$Type <- as.factor(data$Type)
+
+# Note: Scaling (Z-score dll) didelegasikan pada tim model 
 ```
 
 ### 3.5 Data Reduction
@@ -201,13 +183,14 @@ data_bersih2 <- data_bersih1 %>%
 Menghapus redundansi kolom yang muncul akibat proses penggabungan data (merge).
 
 ```r
-# Cek apakah isi kolom IsHoliday.x dan y sama
-all(data_bersih2$IsHoliday.x == data_bersih2$IsHoliday.y)
+# Validasi apakah isi kolom IsHoliday.x dan y sama
+all(data$IsHoliday.x == data$IsHoliday.y)
 
-# Reduksi kolom redundan
-data_final <- data_bersih2 %>%
-  select(-IsHoliday.y) %>%               # buang kolom sisa merge
-  rename(IsHoliday = IsHoliday.x)        # kembalikan nama kolom asli
+# Reduksi (Buang kolom sisa merge)
+data$IsHoliday.y <- NULL
+
+# Rename nama kolom kembali ke awal
+names(data)[names(data) == "IsHoliday.x"] <- "IsHoliday"
 ```
 
 ### 3.6 Data Encoding
@@ -215,22 +198,23 @@ data_final <- data_bersih2 %>%
 Tahap ini mengubah data kategorikal menjadi angka agar dapat diolah oleh model matematika seperti Regresi Linear.
 
 ```r
-# 1. Label Encoding sederhana untuk kolom IsHoliday
+# 1. Label Encoding sederhana untuk kolom IsHoliday (TRUE/FALSE jadi 1/0)
 data$IsHoliday_Num <- as.numeric(data$IsHoliday)
 
-# 2. Dummy Encoding untuk kolom Type (A, B, C)
-# Membuat matriks 0 dan 1 untuk merepresentasikan kategori Type
+# 2. Dummy Encoding untuk kolom Type (A, B, C) menggunakan model.matrix
 dummies <- model.matrix(~Type-1, data=data)
 
-# 3. Menggabungkan kolom Dummy ke dataset utama (Type A dan B)
+# 3. Menggabungkan kolom Dummy ke dataset utama (Hanya TypeA dan TypeB untuk menghindari Dummy Variable Trap)
 data <- cbind(data, dummies[, c("TypeA", "TypeB")])
 
-# Menyimpan hasil akhir pembersihan untuk digunakan oleh anggota tim lain
-write.csv(data, "walmart_cleaning_1.csv", row.names = FALSE)
+# Menyimpan hasil akhir pembersihan yang sudah siap model
+write.csv(data, "walmart_cleaning.csv", row.names = FALSE)
 ```
 
-## 4. Rencana Pengembangan
+## 4. Kesimpulan & Delegasi Tugas (Handover)
 
-> Encoding: Akan dilakukan transformasi variabel kategorikal (Type) menjadi variabel dummy jika diperlukan untuk model Regresi Linear pada tahap berikutnya.
+Pada `dataset_walmart.csv` telah selesai dieksekusi dengan output akhir berupa dataset matang (`walmart_cleaning.csv`). Berikut adalah catatan serah terima untuk tim pemodelan:
 
-> Scaling: Tim model disarankan melakukan standarisasi pada variabel numerik sebelum tahap fitting model untuk menghindari bias akibat perbedaan skala antar fitur.
+> **✅ Encoding :** > Transformasi variabel kategorikal `Type` menjadi variabel *dummy* (`TypeA` dan `TypeB`) serta konversi `IsHoliday` menjadi numerik telah dilakukan. 
+
+> **⏳ Scaling (Didelegasikan ke Tim Model):** > **tidak melakukan scaling**. Hal ini untuk menjaga agar nilai target (`Weekly_Sales`) tetap dalam satuan mata uang asli (Dollar) demi kemudahan interpretasi tim *Time Series*. Tim Regresi disarankan melakukan standarisasi mandiri (*Z-Score* atau *Min-Max*) pada variabel numerik independen sebelum tahap *fitting* model untuk menghindari bias.
