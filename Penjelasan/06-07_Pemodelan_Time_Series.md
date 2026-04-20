@@ -70,7 +70,7 @@ Reject $H_0$ jika p-value < 0,05
 
 Jika semisal gagal reject, maka kita melakukan differencing hingga data stasioner terhadap mean dan parameter d pada ARIMA mengikuti berapa kali kita melakukan differencing terhadap data awal.
 
-- Stasioneritas terhadap mean: menggunakan uji BoxCox
+- Stasioneritas terhadap varians: menggunakan uji BoxCox
   
 Jika lambda mendekati 1, maka data sudah stasioner terhadap varians
 
