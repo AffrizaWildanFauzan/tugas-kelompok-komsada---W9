@@ -111,13 +111,39 @@ Atau tanpa koreksi (moment kurtosis):
 
 $$Kurtosis = \frac{\sum (x_i - \bar{x})^4}{n \cdot s^4}$$
 
+## 5. Ukuran Hubungan Antar Variabel
+
+### Kovarians
+
+Mengukur arah hubungan linear antara dua variabel.
+
+$$
+\text{Cov}(X,Y) = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{n - 1}
+$$
+
+**Interpretasi:**
+- Cov > 0 → hubungan searah  
+- Cov < 0 → hubungan berlawanan arah  
+- Cov ≈ 0 → tidak ada hubungan linear  
+
+---
+
+### Korelasi Pearson
+
+Mengukur kekuatan dan arah hubungan linear.
+<p align="center">
+$r = \frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$
+</p>
+
 ---
 
 ## Ringkasan formula
 
-| Komponen | Formula | 
-|----------|----------------|
-| Median ganjil | $X(n + 1/5/2)$ | 
-| Median genap | $((X_n) + X_{n/2} + 1))/2$ | 
-| Skewness | $\frac{\sum (x_i - \bar{x})^3}{n?}$ | 
-| Kurtosis | $\frac{\sum (x_i - \bar{x})^4}{n/}$ | 
+| Komponen        | Formula |
+|----------------|--------|
+| Median ganjil  | $X_{\left(\frac{n+1}{2}\right)}$ |
+| Median genap   | $\frac{X_{\left(\frac{n}{2}\right)} + X_{\left(\frac{n}{2}+1\right)}}{2}$ |
+| Skewness       | $\frac{\frac{1}{n}\sum (x_i - \bar{x})^3}{\left(\frac{1}{n}\sum (x_i - \bar{x})^2\right)^{3/2}}$ |
+| Kurtosis       | $\frac{\frac{1}{n}\sum (x_i - \bar{x})^4}{\left(\frac{1}{n}\sum (x_i - \bar{x})^2\right)^2}$ |
+| Kovarians      | $\frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{n - 1}$ |
+| Korelasi       | $\frac{\text{Cov}(X,Y)}{s_X \cdot s_Y}$ |
