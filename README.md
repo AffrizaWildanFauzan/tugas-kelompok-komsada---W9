@@ -20,10 +20,19 @@ Proyek ini bertujuan untuk meringkas keseluruhan materi dari mata kuliah **Kompu
 Berikut adalah susunan file dalam repositori ini:
 ```text
 ├── scripts/            # Skrip utama analisis R
-│   ├── statistik_deskriptif.R
+│   ├── 01_Statistik_Deskriptif.R
+|   ├── 02_Teknik_Pembersihan_Data.R
+|   ├── 03_Tabel_Kontingensi.R
+|   ├── 04_Regresi Linier.R
+|   ├── 05_Regresi_Logistik_Biner.R
+|   ├── 06-07_Pemodelan_Time_Series.R
 ├── Penjelasan/
-│   ├── statistik deskriptif.md
-│   ├── statistik deskriptif.pptx
+│   ├── 01_Statistik_Deskriptif.md
+|   ├── 02_Teknik_Pembersihan_Data.md
+|   ├── 03_Tabel_Kontingensi.md
+|   ├── 04_Regresi Linier.md
+|   ├── 05_Regresi_Logistik_Biner.md
+|   ├── 06-07_Pemodelan_Time_Series.md
 └── README.md           # Dokumentasi proyek
 ```
 ## Materi
