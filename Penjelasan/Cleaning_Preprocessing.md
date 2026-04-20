@@ -1,9 +1,73 @@
-# Cek NA dan Duplikat
-colSums(is.na(data))
-sum(duplicated(data))
+# Cleaning & Pre-processing Dataset Walmart
 
-# Cek anomali nilai pada penjualan (mencari nilai minus)
-summary(data$Weekly_Sales)
+---
+
+## 1. Pendahuluan
+Data cleaning dan pre-processing adalah tahapan krusial dalam siklus Sains Data di mana data mentah (*raw data*) dibersihkan, diubah, dan dipersiapkan agar menjadi data yang matang (*clean data*).
+
+**Tujuan Utama Data Preprocessing:**
+1. **Meningkatkan Akurasi Model:** Algoritma *Machine Learning* bekerja berdasarkan prinsip *"Garbage In, Garbage Out"*. Jika data yang dimasukkan buruk, hasil prediksinya pasti buruk. Data yang bersih memastikan model belajar dari pola yang benar.
+2. **Menyesuaikan Format:** Algoritma matematis dan statistik tidak bisa membaca teks sembarangan. Preprocessing memastikan semua data diubah ke dalam format dan skala yang bisa diolah oleh mesin.
+3. **Efisiensi Komputasi:** Mengurangi ukuran data atau membuang variabel yang tidak penting agar proses pelatihan (*training*) model berjalan lebih cepat dan tidak membebani memori komputasi.
+
+Secara umum, proses persiapan data pada proyek ini dibagi menjadi 3 pilar utama, yaitu: Data Cleaning, Data Transformation, dan Data Reduction.
+
+---
+
+## 2. Landasan Teori Preprocessing
+
+### 2.1 Data Cleaning (Pembersihan Data)
+Tahap ini adalah proses membersihkan "kotoran" dari dataset. Fokus utamanya adalah mendeteksi dan menangani ketidaksempurnaan data agar tidak menghasilkan model yang bias atau *error*.
+
+**A. Menangani Missing Value (Data Kosong)**
+Data kosong (NA/Null) sangat sering terjadi akibat sensor rusak, responden tidak menjawab, atau *error* saat ekstraksi. Berikut metode penanganannya:
+* **Penghapusan Baris (Listwise Deletion):** Membuang seluruh baris data yang memiliki sel kosong. Disarankan jika jumlah *missing value* sangat sedikit (< 5% dari total data).
+* **Imputasi Mean (Rata-rata):** Mengisi nilai yang kosong dengan nilai rata-rata kolom. Cocok untuk data numerik berdistribusi normal.
+  * Rumus Mean: $$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$$
+* **Imputasi Median (Nilai Tengah):** Cocok untuk data numerik yang distribusinya menceng (*skewed*) atau memiliki banyak outlier, karena median lebih kebal terhadap nilai ekstrim.
+* **Imputasi Konstanta (Nilai Default):** Mengisi dengan angka spesifik berdasarkan logika bisnis (misal: mengisi kolom diskon yang kosong dengan angka 0).
+
+**B. Menghapus Data Duplikat**
+Data duplikat adalah baris observasi yang terekam lebih dari satu kali secara identik. Kehadirannya bisa membuat model mengalami *overfitting* (bias) karena "pembelajaran berulang" pada kasus yang sama.
+
+**C. Menangani Outlier (Pencilan)**
+Outlier adalah nilai observasi yang menyimpang jauh dari mayoritas data. Metode deteksinya meliputi:
+* **Metode IQR (Interquartile Range) / Boxplot:**
+  * Rumus IQR: $$IQR = Q_3 - Q_1$$
+  * Batas Bawah: $$Lower = Q_1 - 1.5 \times IQR$$
+  * Batas Atas: $$Upper = Q_3 + 1.5 \times IQR$$
+* **Metode Z-Score (Standardisasi):** Mengukur seberapa jauh sebuah nilai dari rata-rata dalam satuan standar deviasi.
+  * Rumus Z-Score: $$z = \frac{x - \mu}{\sigma}$$
+
+**D. Memperbaiki Inkonsistensi Data**
+Menyeragamkan format penulisan, seperti mengubah semua teks menjadi huruf kecil (*Lowercasing*) atau menghapus spasi berlebih (*Trimming*).
+
+### 2.2 Data Transformation (Transformasi Data)
+Tahap ini bertujuan mengubah format, struktur, atau nilai data agar sesuai dengan syarat matematis algoritma *Machine Learning*.
+* **Penyesuaian Tipe Data:** Mengubah teks tanggal menjadi format kalender (`Date`), atau abjad menjadi kelompok/kelas (`Factor`).
+* **Encoding (Kategorik ke Numerik):** * *Label Encoding:* Mengubah kategori menjadi angka berurutan.
+  * *One-Hot Encoding:* Memecah kolom kategori menjadi kolom baru bernilai 1 (Ya) dan 0 (Tidak). 
+  * ⚠️ **Dummy Variable Trap:** Saat membuat *dummy*, satu kolom pecahan harus dihapus untuk menghindari *Multikolinearitas* sempurna.
+* **Scaling (Standarisasi Skala):** Menyetarakan rentang angka antar variabel numerik (Z-Score atau Min-Max) agar variabel berskala besar tidak mendominasi model.
+
+### 2.3 Data Reduction (Reduksi Data)
+Tahap "diet memori" untuk mengurangi ukuran dataset sedemikian rupa sehingga komputasi menjadi lebih cepat tanpa menghilangkan informasi penting.
+* **Menghapus Kolom Redundan:** Membuang kolom ID, nilai konstan, atau kolom hasil *merging* yang isinya sama persis.
+* **Feature Selection:** Memilih variabel yang berkorelasi kuat dengan target (Pearson Correlation).
+* **Dimensionality Reduction & Discretization:** Menggunakan PCA untuk merangkum fitur, atau melakukan *binning* (mengubah numerik jadi kategori interval).
+
+---
+
+## 3. Implementasi Kode pada Dataset Walmart
+
+Berdasarkan diskusi dan kebutuhan pemodelan kelompok (Regresi Linier, Regresi Logistik, dan Time Series), berikut adalah tahapan eksekusi manual (Base R) yang diterapkan pada `dataset_walmart.csv`:
+
+### 3.1 Persiapan dan Pemuatan Data
+Langkah pertama memuat dataset mentah untuk dilakukan inspeksi awal.
+
+```r
+# Load data
+data <- read.csv("dataset_walmart.csv")
 ```
 
 ### 3.2 Identifikasi Masalah
