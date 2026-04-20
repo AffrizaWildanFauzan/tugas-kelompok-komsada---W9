@@ -14,7 +14,7 @@ $$
 
 dengan:
 
-- $\mathbf{x}_i = (1, x_{i1}, x_{i2}, \ldots, x_{ik})^T$ adalah vektor prediktor observasi ke-$i$ (elemen pertama 1 untuk intercept),
+- $x_i = (1, x_{i1}, x_{i2}, \ldots, x_{ik})^T$ adalah vektor prediktor observasi ke-$i$ (elemen pertama 1 untuk intercept),
 - $\boldsymbol{\beta} = (\beta_0, \beta_1, \ldots, \beta_k)^T$ adalah vektor koefisien,
 - $\pi_i \in (0, 1)$.
 
