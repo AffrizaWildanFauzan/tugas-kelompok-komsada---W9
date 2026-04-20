@@ -15,6 +15,7 @@ Proyek ini bertujuan untuk meringkas keseluruhan materi dari mata kuliah **Kompu
 10. Constantine Calvin Gosal Jo / 5052241010
 11. Alief Afghani / 5052241008
 12. Keira Myeisharinna Putri P / 5052231006
+13. Kiagus Arif Rahman / 5052231038
 
 ## 📂 Struktur Repositori
 Berikut adalah susunan file dalam repositori ini:
