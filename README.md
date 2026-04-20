@@ -40,4 +40,5 @@ Berikut adalah susunan file dalam repositori ini:
 Library wajib untuk diinstall terlebih dahulu sebelum menjalankan script
 |File|Library|Fungsi|
 |----|-------|-----|
-|statistik_deskriptif.R|ggplot2|Visualisasi boxplot|
+|statistik_deskriptif.R|ggplot2|Visualisasi|
+|time_series.R|dplyr; lubridate; forecast; tseries|manipulasi dataframe; pengolahan tanggal waktu; uji forecast; uji ADF|
